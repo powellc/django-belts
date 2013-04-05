@@ -6,7 +6,7 @@ An app of higher learning. Build disciplines, train kohai and award belts.
 Overview
 ---------
 
-Composed of three primary components:
+This app is the core of thinkninja.org and composed of three primary components:
 
   * Students -- a shell for User
   * Dojos -- a collection of disciplines, both public and private
