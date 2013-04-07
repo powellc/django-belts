@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>You are attempting the {{ object.rank_awarded }} for {{ object.discipline }}</h2>
+
+    <form method=POST action='.'>{% csrf_token %}
+        {% for question in form %}
+            {{ question.question }}
+            <br/>
+            {{ question.as_p }}
+        {% endfor %}
+        <input type="submit" value="Submit test"/>
+    </form>
+
+{% endblock %}

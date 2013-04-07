@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <h2>Discpline</h2>
+
+    <h4>{{ object }}</h4>
+
+    <h5>Attempt a test to increase your rank!</h5>
+    {% for test in object.tests %}
+    <p><a href="{{ test.get_absolute_url }}">{{ test.rank_awarded }}</a></p>
+    {% endfor %}
+
+{% endblock %}

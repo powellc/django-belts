@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{% if object.passed %}You passed!{% else %}Oops, you got a few wrong!{% endif %}</h2>
+
+    <p>You got {{ object.correct_answer_count }} out of {{ object.total_questions }} questions correct, or {{ object.percentage_correct }}% correct</p>
+
+    {% for question in object.test.testquestion_set.all %}
+    {% if not question in object.correct_answers.all %}
+    <p>You did not answer {{ question }} correct.</p>
+    {% endif %}
+    {% endfor %}
+
+{% endblock %}

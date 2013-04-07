@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Test attempts</h2>
+
+    <table>
+    <tr><th>Test</th><th>Date<th>Result</th><th></th></th></tr>
+    {% for attempt in object_list %}
+    <tr><td>{{ attempt.test }}</td><td>{{ attempt.created_on|date:"F, M j" }}</td><td>{{ attempt.passed }}</td><td><a href="{{ attempt.get_absolute_url }}">Detail</a></td></tr>
+    {% endfor %}
+    </table>
+
+
+{% endblock %}

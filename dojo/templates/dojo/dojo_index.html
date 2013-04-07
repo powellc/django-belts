@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="hero-unit">
+        <h1>ThinkNinja!</h1>
+        <h4>You can test your knowledge with these disciplines by signing up for an account now!</h4>
+        {% for d in disciplines %}
+            <p><a href="{{ d.get_absolute_url }}">{{ d }}</a></p>
+        {% endfor %}
+        {% for attempt in student.testattempt_set.all  %}
+        <p><a href="{{ attempt.get_absolute_url }}">{{ attempt }}</a></p>
+        {% endfor %}
+    </div>
+
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="span4">
+            <h2>What is this?</h2>
+            <p>Have you ever thought, "I'm pretty smart, but how smart am I, really?"</p>
+            <p>Well now you can prove it. ThinkNinja is a new community where students can test themselves on a variety of subjects and earn their way up the ranks, eventually getting their black belt!</p>
+            <p><a class="btn" href="/about/">Learn more &raquo;</a></p>
+        </div>
+        <div class="span4">
+            <h2>Getting Started</h2>
+            <p>All you need is an email address to get started!</p>
+            <p><a class="btn" href="/getting-started/">Sign up &raquo;</a></p>
+        </div>
+        <div class="span4">
+            <h2>Belts = Badges</h2>
+            <p>Thanks to technology, the belts that you earn in subjects as diverse as Gmail Use, or Video Production, can be stored in <a href="http://openbadges.org">your openbadges backpack</a> and shared with friends or co-workers.</p>
+            <p><a class="btn" href="/about/openbadges/">What are open badges? &raquo;</a></p>
+        </div>
+    </div>
+
+{% endblock %}
+
