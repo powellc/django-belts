@@ -5,3 +5,6 @@ local_settings.py
 venv
 .tox
 *.egg-info
+.idea/
+*.db
+dist/

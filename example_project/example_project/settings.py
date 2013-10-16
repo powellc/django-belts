@@ -111,6 +111,16 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+REST_FRAMEWORK = {
+    'DEFAULT_MODEL_SERIALIZER_CLASS':
+        'rest_framework.serializers.HyperlinkedModelSerializer',
+
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -122,6 +132,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'django_extensions',
     'south',
     'fts',
     'tinymce',
@@ -129,6 +140,7 @@ INSTALLED_APPS = (
     'dojo',
     'autoslug',
     'markdown_deux',
+    'rest_framework',
 )
 
 # A sample logging configuration. The only tangible logging

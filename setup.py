@@ -9,6 +9,7 @@ install_requires = [
     'south',
     'django-autoslug',
     'django-tinymce',
+    'djangorestframework',
 ]
 
 setup(
