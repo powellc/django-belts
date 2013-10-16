@@ -32,7 +32,8 @@ class Student(models.Model):
 
     @property
     def passed_tests(self):
-        return self.testattempt_set.filter(passed=True)
+        tests = self.testattempt_set.filter(passed=True).values('test').distinct()
+        return Test.objects.filter(id__in=tests)
 
 
 class Dojo(models.Model):
@@ -182,7 +183,7 @@ class Test(models.Model):
         return u'%s test for %s' % (self.rank_awarded, self.discipline)
 
     def get_absolute_url(self):
-        return reverse('dojo-test-detail', kwargs={'slug': self.rank_awarded.slug})
+        return reverse('dojo-test-detail', kwargs={'discipline_slug': self.discipline.slug, 'slug': self.rank_awarded.slug})
 
     def save(self, *args, **kwargs):
         self.slug = self.rank_awarded.slug
@@ -249,7 +250,16 @@ class TestAttempt(models.Model):
     student = models.ForeignKey(Student)
     test = models.ForeignKey(Test)
     correct_answers = models.ManyToManyField(TestQuestion, blank=True, null=True)
+    passed = models.BooleanField(default=False)
     created = models.DateTimeField(null=True, blank=True, default=datetime.now(), editable=False)
+
+    def save(self, *args, **kwargs):
+        req = getattr(settings, 'DOJO_TEST_PASS_PERCENTAGE', 80)
+        if self.test.pass_percentage:
+            req = self.test.pass_percentage
+        if self.percentage_correct >= req:
+            self.passed = True
+        super(TestAttempt, self).save(*args, **kwargs)
 
     @property
     def correct_answer_count(self):
@@ -264,26 +274,11 @@ class TestAttempt(models.Model):
         """ Return computed percentage of correct answers vs. the total questions in the test. """
         return round((float(self.correct_answer_count) / float(self.total_questions) * 100), 0)
 
-    @property
-    def passed(self):
-        """
-        :return: True if a user has passed the test according to either the test pass_requirement field,
-        the DOJO_TEST_PASS_PERCENTAGE or a default value of 80. False otherwise.
-
-        """
-        req = getattr(settings, 'DOJO_TEST_PASS_PERCENTAGE', 80)
-        if self.test.pass_percentage:
-            req = self.test.pass_percentage
-        if self.percentage_correct >= req:
-            return True
-        else:
-            return False
-
     def __unicode__(self):
         return u'Attempt at %s' % (self.test)
 
     def get_absolute_url(self):
-        return reverse('dojo-test-attempts', kwargs={'test_slug': self.test.slug, 'pk': self.pk})
+        return reverse('dojo-test-attempts', kwargs={'discipline_slug': self.test.discipline.slug, 'test_slug': self.test.slug, 'pk': self.pk})
 
     class Meta:
         verbose_name = _('Test Attempt')

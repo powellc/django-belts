@@ -2,6 +2,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.core.urlresolvers import reverse
 
 from dojo.models import Student, Dojo, Discipline, Test, TestAttempt, TestAnswer, TestQuestion
@@ -12,7 +13,6 @@ class ProtectedView(TemplateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ProtectedView, self).dispatch(*args, **kwargs)
-
 
 class DojoIndexView(TemplateView):
     template_name = 'dojo/dojo_index.html'
@@ -43,7 +43,7 @@ class DisciplineListView(ListView):
     model = Discipline
 
 
-class TestDetailView(DetailView):
+class TestDetailView(ProtectedView, DetailView):
     model = Test
 
     def get_context_data(self, **kwargs):
@@ -69,8 +69,18 @@ class TestDetailView(DetailView):
 class TestCompleteView(DetailView):
     model = TestAttempt
 
+
 class TestAttemptListView(ListView):
     model = TestAttempt
 
     def get_queryset(self):
         return TestAttempt.objects.filter(student__user=self.request.user)
+
+
+class DisciplineCreateView(CreateView):
+    model = Discipline
+
+
+class TestCreateView(CreateView):
+    model = Test
+    fields = ('rank_awarded', 'pass_percentage')
