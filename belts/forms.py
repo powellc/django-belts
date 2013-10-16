@@ -1,7 +1,7 @@
 from django import forms
 from django.forms.formsets import formset_factory
 
-from dojo.models import TestQuestion, TestAttempt
+from .models import TestQuestion, TestAttempt
 
 
 class TestAttemptForm(forms.ModelForm):

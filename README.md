@@ -1,5 +1,5 @@
-django-dojo
-===========
+django-belts
+============
 
 An app of higher learning. Build disciplines, train kohai and award belts.
 

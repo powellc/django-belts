@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.forms import widgets
-from dojo.models import Student, Dojo, Discipline, Rank, Test, TestQuestion, TestAnswer, TestAttempt
+from .models import Student, Dojo, Discipline, Rank, Test, TestQuestion, TestAnswer, TestAttempt
 
 
 class DisciplineAdmin(admin.ModelAdmin):

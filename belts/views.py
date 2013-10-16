@@ -5,8 +5,8 @@ from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.core.urlresolvers import reverse
 
-from dojo.models import Student, Dojo, Discipline, Test, TestAttempt, TestAnswer, TestQuestion
-from dojo.forms import test_forms
+from .models import Student, Dojo, Discipline, Test, TestAttempt, TestAnswer, TestQuestion
+from .forms import test_forms
 
 
 class ProtectedView(TemplateView):
@@ -14,11 +14,11 @@ class ProtectedView(TemplateView):
     def dispatch(self, *args, **kwargs):
         return super(ProtectedView, self).dispatch(*args, **kwargs)
 
-class DojoIndexView(TemplateView):
-    template_name = 'dojo/dojo_index.html'
+class BeltsIndexView(TemplateView):
+    template_name = 'belts/belts_index.html'
 
     def get_context_data(self, **kwargs):
-        context = super(DojoIndexView, self).get_context_data(**kwargs)
+        context = super(BeltsIndexView, self).get_context_data(**kwargs)
         context['disciplines'] = Discipline.objects.filter(private=False)
         return context
 
@@ -63,7 +63,7 @@ class TestDetailView(ProtectedView, DetailView):
                 if question.correct_answer.id == int(request.POST[item]):
                     attempt.correct_answers.add(TestQuestion.objects.get(id=item.split('_')[-1]))
         attempt.save()
-        return redirect(reverse('dojo-test-attempts', kwargs={'test_slug': test.slug, 'pk': attempt.id}))
+        return redirect(reverse('belts-test-attempts', kwargs={'test_slug': test.slug, 'pk': attempt.id}))
 
 
 class TestCompleteView(DetailView):

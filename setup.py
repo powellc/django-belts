@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = __import__('dojo').__version__
+version = __import__('belts').__version__
 #version = "2.0"
 
 install_requires = [
@@ -13,12 +13,12 @@ install_requires = [
 ]
 
 setup(
-    name = "django-dojo",
+    name = "django-belts",
     version = version,
-    url = 'http://github.com/powellc/django-dojo',
+    url = 'http://github.com/powellc/django-belts',
     license = 'BSD',
     platforms=['OS Independent'],
-    description = "A learning dojo, the red-hot core of thinkninja.com",
+    description = "A learning dojo, the red-hot core of beltbadgers.com",
     author = "Colin Powell",
     author_email = 'colin.powell@gmail.com',
     packages=find_packages(),
@@ -36,6 +36,6 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     package_dir={
-        'django-dojo': 'dojo',
+        'django-belts': 'belts',
     },
 )

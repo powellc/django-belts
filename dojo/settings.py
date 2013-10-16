@@ -1,1 +1,0 @@
-AUTH_PROFILE_MODULE = "dojo.Student"
