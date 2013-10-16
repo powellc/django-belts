@@ -7,8 +7,9 @@
         {% for d in disciplines %}
             <p><a href="{{ d.get_absolute_url }}">{{ d }}</a></p>
         {% endfor %}
-        {% for attempt in student.testattempt_set.all  %}
-        <p><a href="{{ attempt.get_absolute_url }}">{{ attempt }}</a></p>
+        <h3>Your achievements</h3>
+        {% for attempt in student.passed_tests.all %}
+            <p>{{ attempt.rank_awarded }}</p>
         {% endfor %}
     </div>
 

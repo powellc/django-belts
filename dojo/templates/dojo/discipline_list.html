@@ -6,5 +6,6 @@
     {% for d in object_list %}
     <p><a href="{{ d.get_absolute_url }}">{{ d }}</a></p>
     {% endfor %}
+    <p><a href="{% url 'dojo-discipline-create' %}">Add a new discipline</a></p>
 
 {% endblock %}
